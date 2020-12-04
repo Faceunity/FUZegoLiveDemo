@@ -1,0 +1,30 @@
+//
+//  ZGKeyCenter.m
+//  LiveRoomPlayGround
+//
+//  Created by zego on 2019/7/2.
+//  Copyright © 2019 Zego. All rights reserved.
+//
+
+#import "ZGKeyCenter.h"
+
+@implementation ZGKeyCenter
+
+ + (unsigned int)appID {
+//     return <#填写自己的 appID#>;
+     
+     return 1025563432;
+     
+ }
+ 
+ // 从即构主页申请
+ + (NSData *)appSign {
+     Byte signKey[] = {
+         
+         0x10,0xf6,0x45,0xe7,0xe1,0xfb,0xf5,0x27,0xe2,0x09,0xc3,0x8f,0x04,0xb3,0x9c,0x32,0x9e,0xa5,0x56,0xb6,0x55,0xf8,0x59,0xd5,0x29,0x10,0xb3,0xc0,0x9d,0x3f,0x1e,0x99
+     };
+     NSData* sign = [NSData dataWithBytes:signKey length:32];
+     return sign;
+ }
+
+@end
