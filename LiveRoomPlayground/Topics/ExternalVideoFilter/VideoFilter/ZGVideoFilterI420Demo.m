@@ -134,7 +134,7 @@
             CVPixelBufferLockBaseAddress(pixel_buffer, 0);
             int width = (int)CVPixelBufferGetWidth(pixel_buffer);
             int height = (int)CVPixelBufferGetHeight(pixel_buffer);
-    
+
             uint8_t *srcY = CVPixelBufferGetBaseAddressOfPlane(pixel_buffer,0);
             uint8_t *srcU = CVPixelBufferGetBaseAddressOfPlane(pixel_buffer,1);
             uint8_t *srcV = CVPixelBufferGetBaseAddressOfPlane(pixel_buffer,2);
@@ -142,6 +142,11 @@
             int uvstride = (int)CVPixelBufferGetBytesPerRowOfPlane(pixel_buffer, 1);
             
             [[FUManager shareManager] processFrameWithY:srcY U:srcU V:srcV yStride:ystride uStride:uvstride vStride:uvstride FrameWidth:width FrameHeight:height];
+//
+//            // 自定义前处理：此处使用 FaceUnity 作为外部滤镜
+//            [[FUTestRecorder shareRecorder] processFrameWithLog];
+//            CVPixelBufferRef output = [[FUManager shareManager] renderItemsToPixelBuffer:pixel_buffer];
+            
             CVPixelBufferUnlockBaseAddress(pixel_buffer, 0);
             if ([ZGImageUtils copyPixelBufferFrom:pixel_buffer to:dst]) {
                 // * 把从 buffer pool 中得到的 CVPixelBuffer 实例传进来

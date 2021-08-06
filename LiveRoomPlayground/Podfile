@@ -4,7 +4,7 @@
 target 'LiveRoomPlayground-iOS' do
 
   pod 'ZegoLiveRoom/AudioPlayer'
-  pod 'Nama', '~> 7.2.0'
+#  pod 'Nama', '~> 7.2.0'
   pod 'SVProgressHUD'
 
 end
