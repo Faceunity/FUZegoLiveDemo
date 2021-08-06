@@ -33,6 +33,10 @@ static NSString *ZGExternalVideoFilterStreamID = @"ZGExternalVideoFilterStreamID
 @property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *userName;
 
+/// 是否使用FU
+@property(nonatomic, assign) BOOL isuseFU;
+
+
 @end
 
 @implementation ZGExternalVideoFilterLoginViewController
@@ -45,9 +49,26 @@ static NSString *ZGExternalVideoFilterStreamID = @"ZGExternalVideoFilterStreamID
     // 检查一下是否有 FaceUnity 的鉴权
     [self checkFaceUnityAuthPack];
     
+    
+    UIButton *fuBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    fuBtn.userInteractionEnabled = NO;
+    fuBtn.enabled = NO;
+    [fuBtn setTitle:@"FU开关" forState:(UIControlStateNormal)];
+    [fuBtn setTitleColor:[UIColor blueColor] forState:(UIControlStateNormal)];
+    fuBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    
+    UISwitch *fuswitch = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [fuswitch addTarget:self action:@selector(selectedFUChanged:) forControlEvents:(UIControlEventValueChanged)];
+    [fuswitch setOn:YES];
+    self.isuseFU = YES;
+    
+    
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:fuswitch],[[UIBarButtonItem alloc] initWithCustomView:fuBtn]];
+    
     [self setupUI];
     self.filterBufferTypeList = @[@"AsyncPixelBufferType", @"AsyncI420PixelBufferType", @"AsyncNV12PixelBufferType", @"SyncPixelBufferType"];
 }
+
 
 - (void)setupUI {
     self.typePickerView.delegate = self;
@@ -55,7 +76,17 @@ static NSString *ZGExternalVideoFilterStreamID = @"ZGExternalVideoFilterStreamID
     [self pickerView:self.typePickerView didSelectRow:0 inComponent:0];
 }
 
+
 #pragma mark - Actions
+
+- (void)selectedFUChanged:(UISwitch *)sender{
+    
+    self.isuseFU = sender.isOn;
+    [[NSUserDefaults standardUserDefaults] setBool:sender.isOn forKey:@"isuseFU"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
 
 - (IBAction)jumpToExternalVideoFilterPublish:(id)sender {
     if (self.roomIDTextField.text.length > 0 && self.streamIDTextField.text.length > 0) {
@@ -67,6 +98,7 @@ static NSString *ZGExternalVideoFilterStreamID = @"ZGExternalVideoFilterStreamID
         vc.roomID = self.roomIDTextField.text;
         vc.streamID = self.streamIDTextField.text;
         vc.selectedFilterBufferType = self.selectedFilterBufferType;
+        vc.isuseFU = self.isuseFU;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         [ZegoHudManager showMessage:@"未填房间ID或流ID"];

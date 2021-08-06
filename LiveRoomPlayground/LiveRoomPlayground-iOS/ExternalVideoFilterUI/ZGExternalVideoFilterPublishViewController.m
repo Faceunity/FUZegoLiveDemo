@@ -10,16 +10,15 @@
 
 #import "ZGExternalVideoFilterPublishViewController.h"
 #import "ZGExternalVideoFilterDemo.h"
+
+/** faceu */
 #import "FUManager.h"
-#import "FUAPIDemoBar.h"
-#import "Masonry.h"
-
 #import "FUTestRecorder.h"
+#import "UIViewController+FaceUnityUIExtension.h"
 
-@interface ZGExternalVideoFilterPublishViewController () <ZGExternalVideoFilterDemoProtocol, FUAPIDemoBarDelegate>
 
-// 屏幕底部的 FaceUnity 美颜控制条
-@property (nonatomic, strong) FUAPIDemoBar *demoBar;
+@interface ZGExternalVideoFilterPublishViewController () <ZGExternalVideoFilterDemoProtocol,FUManagerProtocol>
+
 
 @property (nonatomic, strong) ZGExternalVideoFilterDemo *demo;
 
@@ -37,8 +36,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:(UIBarButtonItemStyleDone) target:self action:@selector(backClick)];
+    
     self.demo = [[ZGExternalVideoFilterDemo alloc] init];
     self.demo.delegate = self;
+    self.demo.isuseFU = self.isuseFU;
     
     // 先加载外部滤镜工厂
     [self.demo initFilterFactoryType:self.selectedFilterBufferType];
@@ -47,7 +49,12 @@
     [self.demo initSDKWithRoomID:self.roomID streamID:self.streamID isAnchor:YES];
     
     // 初始化美颜
-    [self setupFaceUnity];
+    if (self.isuseFU) {
+        
+        [self setupFaceUnity];
+        [FUManager shareManager].delegate = self;
+    }
+    
     
      //预览镜像
     self.enablePreviewMirror = YES;
@@ -59,49 +66,25 @@
     [self.demo startPublish];
 }
 
-- (void)dealloc {
-    [[FUManager shareManager] destoryItems];
+
+- (void)backClick{
     
-    [self.demo stopPublish];
     [self.demo stopPreview];
+    [self.demo stopPublish];
     [self.demo logoutRoom];
-    
     self.demo = nil;
-    
-}
 
-#pragma mark - setupFaceUnity
-
-/// 初始化美颜SDK
-- (void)setupFaceUnity{
-
-    [[FUTestRecorder shareRecorder] setupRecord];
+    if (self.isuseFU) {
     
-    [[FUManager shareManager] loadFilter];
-    [FUManager shareManager].isRender = YES;
-    [FUManager shareManager].flipx = NO;
-    [FUManager shareManager].trackFlipx = NO;
+        [[FUManager shareManager] destoryItems];
+    }
     
-    // 设置屏幕底部的 FaceUnity 美颜控制条
-    _demoBar = [[FUAPIDemoBar alloc] init];
-    _demoBar.mDelegate = self;
-    [self.view addSubview:_demoBar];
-    [_demoBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        if (@available(iOS 11.0, *)) {
-            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom);
-        } else {
-            make.bottom.equalTo(self.view.mas_bottom);
-        }
-        make.left.right.equalTo(self.view);
-        make.height.mas_equalTo(195);
-    }];
+    [self.navigationController popViewControllerAnimated:YES];
     
-   
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [self.view endEditing:YES];
-    [self.demoBar hiddenTopViewWithAnimation:YES];
 }
 
 - (IBAction)onSwitchPreviewMirror:(UISwitch *)sender {
@@ -110,35 +93,13 @@
 }
 
 
+
 #pragma mark - FaceUnity method
 // 以下方法都是 FaceUnity 相关的视图和业务逻辑
 
-#pragma mark -  FUAPIDemoBarDelegate
-
-#pragma -FUAPIDemoBarDelegate
--(void)filterValueChange:(FUBeautyParam *)param{
-    [[FUManager shareManager] filterValueChange:param];
-}
-
--(void)switchRenderState:(BOOL)state{
-    [FUManager shareManager].isRender = state;
-}
-
--(void)bottomDidChange:(int)index{
-    if (index < 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeBeautify];
-    }
-    if (index == 3) {
-        [[FUManager shareManager] setRenderType:FUDataTypeStrick];
-    }
+- (void)fumanagercheckAI{
     
-    if (index == 4) {
-        [[FUManager shareManager] setRenderType:FUDataTypeMakeup];
-    }
-    if (index == 5) {
-        
-        [[FUManager shareManager] setRenderType:FUDataTypebody];
-    }
+    [self checkAI];
 }
 
 #pragma mark - ZGExternalVideoFilterDemoProtocol

@@ -58,7 +58,16 @@
     }
     
     [ZGApiManager releaseApi];
-    [ZegoExternalVideoFilter setVideoFilterFactory:self.g_filterFactory channelIndex:ZEGOAPI_CHN_MAIN];
+    
+    if (_isuseFU) {
+        
+        [ZegoExternalVideoFilter setVideoFilterFactory:self.g_filterFactory channelIndex:ZEGOAPI_CHN_MAIN];
+        
+    }else{
+    
+        [ZegoExternalVideoFilter setVideoFilterFactory:nil channelIndex:ZEGOAPI_CHN_MAIN];
+    }
+    
 }
 
 
@@ -180,6 +189,7 @@
 - (void)enablePreviewMirror:(BOOL)enable {
     [self.zegoApi setVideoMirrorMode:enable ? ZegoVideoMirrorModePreviewMirrorPublishNoMirror : ZegoVideoMirrorModePreviewCaptureBothNoMirror];
 }
+
 
 
 #pragma mark - Publisher Delegate

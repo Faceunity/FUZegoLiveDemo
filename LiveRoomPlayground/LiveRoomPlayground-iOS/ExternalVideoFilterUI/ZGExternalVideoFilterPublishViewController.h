@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *roomID;
 @property (nonatomic, copy) NSString *streamID;
+@property(nonatomic, assign) BOOL isuseFU;
 
 @property (nonatomic, assign) NSInteger selectedFilterBufferType;
 

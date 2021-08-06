@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZGExternalVideoFilterDemo : NSObject
 
 @property (nonatomic, weak) id <ZGExternalVideoFilterDemoProtocol>delegate;
+@property(nonatomic, assign) BOOL isuseFU;
+
 
 /**
  初始化外部滤镜工厂对象
@@ -54,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)startPlay;
 - (void)stopPlay;
 - (void)enablePreviewMirror:(BOOL)enable;
+
 
 @end
 

@@ -1,24 +1,20 @@
 PODS:
-  - Nama (7.2.0)
   - SVProgressHUD (2.2.5)
-  - ZegoLiveRoom/AudioPlayer (1.20.11.5)
+  - ZegoLiveRoom/AudioPlayer (1.21.5.11)
 
 DEPENDENCIES:
-  - Nama (~> 7.2.0)
   - SVProgressHUD
   - ZegoLiveRoom/AudioPlayer
 
 SPEC REPOS:
   trunk:
-    - Nama
     - SVProgressHUD
     - ZegoLiveRoom
 
 SPEC CHECKSUMS:
-  Nama: 6513d06085933c8d13b1e6360f5c1ea6996f745b
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  ZegoLiveRoom: 73af44e6781bfd73ffdab6d08b14ad2c79d70135
+  ZegoLiveRoom: 9b88874d8359c2d3b746f630922c461cf554eb0c
 
-PODFILE CHECKSUM: 368c1ca65080b3a7bb1b47fbc133a36a82e412a6
+PODFILE CHECKSUM: c59e9bfa3d193edacbf6809e8d15bcbb2d813190
 
 COCOAPODS: 1.9.3
