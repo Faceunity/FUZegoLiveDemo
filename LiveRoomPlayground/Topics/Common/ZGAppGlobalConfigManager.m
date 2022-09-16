@@ -61,7 +61,7 @@ static ZGAppGlobalConfigManager *instance = nil;
     ZGAppGlobalConfig *conf = [[ZGAppGlobalConfig alloc] init];
     conf.appID = ZGKeyCenter.appID;
     conf.appSign = [ZGAppSignHelper convertAppSignToString:ZGKeyCenter.appSign];
-    conf.environment = ZGAppEnvironmentTest;
+    conf.environment = ZGAppEnvironmentOfficial;
     return conf;
 }
 

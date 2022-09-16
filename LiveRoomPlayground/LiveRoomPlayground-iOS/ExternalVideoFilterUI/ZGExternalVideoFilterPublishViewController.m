@@ -12,12 +12,10 @@
 #import "ZGExternalVideoFilterDemo.h"
 
 /** faceu */
-#import "FUManager.h"
-#import "FUTestRecorder.h"
-#import "UIViewController+FaceUnityUIExtension.h"
+#import "FUDemoManager.h"
 
 
-@interface ZGExternalVideoFilterPublishViewController () <ZGExternalVideoFilterDemoProtocol,FUManagerProtocol>
+@interface ZGExternalVideoFilterPublishViewController () <ZGExternalVideoFilterDemoProtocol>
 
 
 @property (nonatomic, strong) ZGExternalVideoFilterDemo *demo;
@@ -26,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *previewMirrorSwitch;
 
 @property (nonatomic, assign) BOOL enablePreviewMirror;
+@property(nonatomic, strong) FUDemoManager *demoManager;
 
 @end
 
@@ -51,8 +50,12 @@
     // 初始化美颜
     if (self.isuseFU) {
         
-        [self setupFaceUnity];
-        [FUManager shareManager].delegate = self;
+        // FaceUnity UI
+        CGFloat safeAreaBottom = 0;
+        if (@available(iOS 11.0, *)) {
+            safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
+        }
+        self.demoManager = [[FUDemoManager alloc] initWithTargetController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom - 88];
     }
     
     
@@ -92,15 +95,6 @@
     [self.demo enablePreviewMirror:self.enablePreviewMirror];
 }
 
-
-
-#pragma mark - FaceUnity method
-// 以下方法都是 FaceUnity 相关的视图和业务逻辑
-
-- (void)fumanagercheckAI{
-    
-    [self checkAI];
-}
 
 #pragma mark - ZGExternalVideoFilterDemoProtocol
 - (nonnull UIView *)getPlaybackView {

@@ -128,10 +128,9 @@
         
         if (dst) {
             // 自定义前处理：此处使用 FaceUnity 作为外部滤镜
-            [[FUTestRecorder shareRecorder] processFrameWithLog];
-            CVPixelBufferRef output = [[FUManager shareManager] renderItemsToPixelBuffer:pixel_buffer];
+            [[FUManager shareManager] renderItemsToPixelBuffer:pixel_buffer];
             
-            if ([ZGImageUtils copyPixelBufferFrom:output to:dst]) {
+            if ([ZGImageUtils copyPixelBufferFrom:pixel_buffer to:dst]) {
                 // * 把从 buffer pool 中得到的 CVPixelBuffer 实例传进来
                 [self->buffer_pool_ queueInputBuffer:dst timestamp:timestamp_100n];
             }

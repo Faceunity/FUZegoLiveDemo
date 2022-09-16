@@ -49,8 +49,7 @@
 #pragma mark -- ZegoVideoFilterDelegate Delegate
 
 - (void)onProcess:(CVPixelBufferRef)pixel_buffer withTimeStatmp:(unsigned long long)timestamp_100 {
-    // * 采集到的图像数据通过这个传进来，同步处理完返回处理结果
-    [[FUTestRecorder shareRecorder] processFrameWithLog];
+    
     // 自定义前处理：此处使用 FaceUnity 作为外部滤镜
     CVPixelBufferRef output = [[FUManager shareManager] renderItemsToPixelBuffer:pixel_buffer];
     

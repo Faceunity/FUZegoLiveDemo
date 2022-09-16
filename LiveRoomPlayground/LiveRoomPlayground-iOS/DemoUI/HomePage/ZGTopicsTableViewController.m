@@ -24,6 +24,24 @@
     NSMutableArray *advancedTopicList = [NSMutableArray array];
     NSArray *topicList = @[basicTopicList, commonTopicList, advancedTopicList];
     
+    if (@available(iOS 15.0, *)) {
+        UINavigationBarAppearance * bar = [UINavigationBarAppearance new];
+        bar.backgroundColor = [UIColor whiteColor];
+        bar.backgroundEffect = nil;
+        self.navigationController.navigationBar.scrollEdgeAppearance = bar;
+        self.navigationController.navigationBar.standardAppearance = bar;
+        
+        UITabBarAppearance * bar2 = [UITabBarAppearance new];
+        bar2.backgroundColor = [UIColor whiteColor];
+        bar2.backgroundEffect = nil;
+        self.tabBarController.tabBar.scrollEdgeAppearance = bar2;
+        self.tabBarController.tabBar.standardAppearance = bar2;
+    } else {
+        // Fallback on earlier versions
+    }
+
+
+    
 #ifdef _Module_Publish
     [basicTopicList addObject:_Module_Publish];
 #endif
