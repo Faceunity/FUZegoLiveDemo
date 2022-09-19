@@ -1,20 +1,26 @@
 PODS:
+  - FURenderKit (8.3.0)
   - SVProgressHUD (2.2.5)
-  - ZegoLiveRoom/AudioPlayer (1.21.5.11)
+  - ZegoLiveRoom (6.13.1.22827):
+    - ZegoLiveRoom/Basic (= 6.13.1.22827)
+  - ZegoLiveRoom/Basic (6.13.1.22827)
 
 DEPENDENCIES:
+  - FURenderKit (~> 8.3.0)
   - SVProgressHUD
-  - ZegoLiveRoom/AudioPlayer
+  - ZegoLiveRoom
 
 SPEC REPOS:
-  trunk:
+  https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git:
+    - FURenderKit
     - SVProgressHUD
     - ZegoLiveRoom
 
 SPEC CHECKSUMS:
+  FURenderKit: 3cd05abd03134d287a1d63cbaaeb95d304ba6bd6
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  ZegoLiveRoom: 9b88874d8359c2d3b746f630922c461cf554eb0c
+  ZegoLiveRoom: 1a6c8013a99798b39b7ae3f03c9cadafa0db49e3
 
-PODFILE CHECKSUM: c59e9bfa3d193edacbf6809e8d15bcbb2d813190
+PODFILE CHECKSUM: c777920c92e4db4be060f616c01953ee4c82e1fc
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.11.3
