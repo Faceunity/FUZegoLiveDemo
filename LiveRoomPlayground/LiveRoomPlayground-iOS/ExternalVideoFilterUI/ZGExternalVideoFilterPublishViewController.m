@@ -51,11 +51,8 @@
     if (self.isuseFU) {
         
         // FaceUnity UI
-        CGFloat safeAreaBottom = 0;
-        if (@available(iOS 11.0, *)) {
-            safeAreaBottom = [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom;
-        }
-        self.demoManager = [[FUDemoManager alloc] initWithTargetController:self originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - safeAreaBottom - 88];
+        [FUDemoManager setupFUSDK];
+        [[FUDemoManager shared] addDemoViewToView:self.view originY:CGRectGetHeight(self.view.frame) - FUBottomBarHeight - FUSafaAreaBottomInsets() - 88];
     }
     
     
@@ -71,19 +68,19 @@
 
 
 - (void)backClick{
-    
+
     [self.demo stopPreview];
     [self.demo stopPublish];
     [self.demo logoutRoom];
-    self.demo = nil;
+    self.demo = nil;    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 
+- (void)dealloc{
     if (self.isuseFU) {
-    
-        [[FUManager shareManager] destoryItems];
+        [FUDemoManager shared].shouldRender = NO;
+        [FUDemoManager destory];
     }
-    
-    [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

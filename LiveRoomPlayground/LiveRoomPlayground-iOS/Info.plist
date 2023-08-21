@@ -30,6 +30,8 @@
 	<string>We need Microphone</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need Save Record to Your Album</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need Save Record to Your Album</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -46,8 +48,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>We need Save Record to Your Album</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

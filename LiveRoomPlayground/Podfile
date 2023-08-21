@@ -6,7 +6,7 @@ source 'https://mirrors.tuna.tsinghua.edu.cn/git/CocoaPods/Specs.git'
 target 'LiveRoomPlayground-iOS' do
 
   pod 'ZegoLiveRoom'
-  pod 'FURenderKit', '~> 8.3.0'
+  pod 'FURenderKit', '~> 8.7.0'
   pod 'SVProgressHUD'
 
 end

@@ -1,12 +1,12 @@
 PODS:
-  - FURenderKit (8.3.0)
+  - FURenderKit (8.7.0)
   - SVProgressHUD (2.2.5)
   - ZegoLiveRoom (6.13.1.22827):
     - ZegoLiveRoom/Basic (= 6.13.1.22827)
   - ZegoLiveRoom/Basic (6.13.1.22827)
 
 DEPENDENCIES:
-  - FURenderKit (~> 8.3.0)
+  - FURenderKit (~> 8.7.0)
   - SVProgressHUD
   - ZegoLiveRoom
 
@@ -17,10 +17,10 @@ SPEC REPOS:
     - ZegoLiveRoom
 
 SPEC CHECKSUMS:
-  FURenderKit: 3cd05abd03134d287a1d63cbaaeb95d304ba6bd6
+  FURenderKit: a73f9a86fc4b2963c6c29bd58f0b42a953cf9362
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   ZegoLiveRoom: 1a6c8013a99798b39b7ae3f03c9cadafa0db49e3
 
-PODFILE CHECKSUM: c777920c92e4db4be060f616c01953ee4c82e1fc
+PODFILE CHECKSUM: 039cdf4ce1904cde169f8d3c9f4ee46f3ff2b21e
 
 COCOAPODS: 1.11.3
