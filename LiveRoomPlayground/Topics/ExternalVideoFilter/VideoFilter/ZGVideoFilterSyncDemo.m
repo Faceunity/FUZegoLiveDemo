@@ -14,7 +14,7 @@
 #if TARGET_OS_OSX
 #import "FUManager-mac.h"
 #elif TARGET_OS_IOS
-#import "FUManager.h"
+#import "FUDemoManager.h"
 #import "FUTestRecorder.h"
 
 #endif
@@ -51,9 +51,27 @@
 - (void)onProcess:(CVPixelBufferRef)pixel_buffer withTimeStatmp:(unsigned long long)timestamp_100 {
     
     // 自定义前处理：此处使用 FaceUnity 作为外部滤镜
-    CVPixelBufferRef output = [[FUManager shareManager] renderItemsToPixelBuffer:pixel_buffer];
+//    CVPixelBufferRef output = [[FUManager shareManager] renderItemsToPixelBuffer:pixel_buffer];
     
-    [delegate_ onProcess:output withTimeStatmp:timestamp_100];
+    [[FUDemoManager shared] checkAITrackedResult];
+    if ([FUDemoManager shared].shouldRender) {
+        [[FUTestRecorder shareRecorder] processFrameWithLog];
+        [FUDemoManager updateBeautyBlurEffect];
+        FURenderInput *input = [[FURenderInput alloc] init];
+        input.renderConfig.imageOrientation = FUImageOrientationUP;
+        input.renderConfig.isFromFrontCamera = YES;
+        input.renderConfig.stickerFlipH = YES;
+        input.pixelBuffer = pixel_buffer;
+        //开启重力感应，内部会自动计算正确方向，设置fuSetDefaultRotationMode，无须外面设置
+        input.renderConfig.gravityEnable = YES;
+        FURenderOutput *output = [[FURenderKit shareRenderKit] renderWithInput:input];
+        if(output){
+            pixel_buffer = output.pixelBuffer;
+        }
+    }
+    
+    
+    [delegate_ onProcess:pixel_buffer withTimeStatmp:timestamp_100];
 }
 
 @end
